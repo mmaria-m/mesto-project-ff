@@ -1,5 +1,5 @@
 // создание карточки
-export function createCard(cardData, cardDelete, handleLikeButton, handleCardClick) {
+export function createCard(cardData, deleteCard, handleLikeButton, handleCardClick) {
         const cardTemplate = document.querySelector("#card-template").content;
         const cardElement = cardTemplate
         .querySelector(".places__item")
@@ -15,13 +15,13 @@ export function createCard(cardData, cardDelete, handleLikeButton, handleCardCli
     
         likeButton.addEventListener("click", () => handleLikeButton(likeButton));
         cardImage.addEventListener("click", () => handleCardClick(cardData));
-        deleteButton.addEventListener("click", () => cardDelete(cardElement));
+        deleteButton.addEventListener("click", () => deleteCard(cardElement));
     
         return cardElement;
     }
 
 // удаление карточки
-export function cardDelete(cardElement) {
+export function deleteCard(cardElement) {
         cardElement.remove();
   }
   

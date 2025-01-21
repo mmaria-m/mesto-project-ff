@@ -1,13 +1,14 @@
 // imports
 import "./pages/index.css";
 import { initialCards } from "./components/cards.js";
-import { createCard, cardDelete, handleLikeButton } from "./components/card.js";
+import { createCard, deleteCard, handleLikeButton } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modal.js";
 
 const placesList = document.querySelector(".places__list");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
+const closeButtons = document.querySelectorAll(".popup__close");
 
 const profileEditPopup = document.querySelector(".popup_type_edit");
 const cardAddPopup = document.querySelector(".popup_type_new-card");
@@ -37,12 +38,14 @@ const cardForm = document.querySelector(".popup_type_new-card .popup__form");
 const placeName = document.querySelector(".popup__input_type_card-name");
 const placePictureUrl = document.querySelector(".popup__input_type_url");
 
+const imagePopupZoomed = imagePopup.querySelector(".popup__image");
+const popupDescription = imagePopup.querySelector(".popup__caption");
+
 // открытие попапа с картинкой
 function handleCardClick(cardData) {
   openPopup(imagePopup);
-  const imagePopupZoomed = imagePopup.querySelector(".popup__image");
-  const popupDescription = imagePopup.querySelector(".popup__caption");
   imagePopupZoomed.src = cardData.link;
+  imagePopupZoomed.alt = cardData.name;
   popupDescription.textContent = cardData.name;
 }
 
@@ -61,7 +64,9 @@ function handleCardFormSubmit(evt) {
   const cardImageUrl = placePictureUrl.value;
   const cardElement = createCard(
     { name: cardTitle, link: cardImageUrl },
-    cardDelete
+    deleteCard,
+    handleLikeButton,
+    handleCardClick
   );
   placesList.prepend(cardElement);
   cardForm.reset();
@@ -80,12 +85,11 @@ function handleProfileFormSubmit(evt) {
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
-// слушатели для кнопок закрытия попапов
-profileEditPopupClose.addEventListener("click", () =>
-  closePopup(profileEditPopup)
-);
-cardAddPopupClose.addEventListener("click", () => closePopup(cardAddPopup));
-imagePopupClose.addEventListener("click", () => closePopup(imagePopup));
+// закрытие попапов по крестику
+closeButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
 
 // автоматическое заполнение полей профиля при открытии попапа
 function setPopupProfileInformation() {
@@ -97,7 +101,7 @@ function setPopupProfileInformation() {
 initialCards.forEach(function (item) {
   const cardElement = createCard(
     item,
-    cardDelete,
+    deleteCard,
     handleLikeButton,
     handleCardClick
   );
