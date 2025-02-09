@@ -3,6 +3,8 @@ import "./pages/index.css";
 import { initialCards } from "./components/cards.js";
 import { createCard, deleteCard, handleLikeButton } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modal.js";
+import { enableValidation, clearValidation } from "./components/validation.js";
+// import {}
 
 const placesList = document.querySelector(".places__list");
 
@@ -23,6 +25,15 @@ const cardAddPopupClose = document.querySelector(
 const imagePopupClose = document.querySelector(
   ".popup_type_image .popup__close"
 );
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+};
 
 const nameInput = profileEditPopup.querySelector(".popup__input_type_name");
 const jobInput = profileEditPopup.querySelector(
@@ -52,10 +63,14 @@ function handleCardClick(cardData) {
 // слушатели для открытия попапов редктирования профиля и добавления карточки
 profileEditButton.addEventListener("click", () => {
   setPopupProfileInformation();
+  clearValidation(profileForm, validationConfig);
   openPopup(profileEditPopup);
 });
 
-profileAddButton.addEventListener("click", () => openPopup(cardAddPopup));
+profileAddButton.addEventListener("click", () => {
+  openPopup(cardAddPopup);
+  clearValidation(cardForm, validationConfig);
+});
 
 // добавление карточки после отправки формы
 function handleCardFormSubmit(evt) {
@@ -107,3 +122,6 @@ initialCards.forEach(function (item) {
   );
   placesList.append(cardElement);
 });
+
+// валидация форм в попапах
+enableValidation(validationConfig);
