@@ -113,7 +113,6 @@ function handleCardFormSubmit(evt) {
       );
       placesList.prepend(cardElement);
       closePopup(cardAddPopup);
-      
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
@@ -122,7 +121,6 @@ function handleCardFormSubmit(evt) {
       cardForm.reset();
       updateSavingStatus(cardForm, false);
     });
-
 }
 
 cardForm.addEventListener("submit", handleCardFormSubmit);
