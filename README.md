@@ -1,3 +1,5 @@
 # Проектная работа Mesto
 
-https://github.com/mmaria-m/mesto-project-ff.git
+Girhub: https://github.com/mmaria-m/mesto-project-ff.git
+
+Pages: https://mmaria-m.github.io/mesto-project-ff/
