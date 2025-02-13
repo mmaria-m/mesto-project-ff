@@ -1,14 +1,3 @@
-export {
-  getUserData,
-  getInitialCards,
-  editProfileInfo,
-  addNewCard,
-  deleteCardApi,
-  putLikeApi,
-  removeLikeApi,
-  updateProfilePicture,
-};
-
 const config = {
   baseUrl: "https://nomoreparties.co/v1/wff-cohort-31",
   headers: {
@@ -55,8 +44,7 @@ const addNewCard = (name, link) => {
       name: name,
       link: link,
     }),
-  })
-    .then(handleRespone)
+  }).then(handleRespone);
 };
 
 const deleteCardApi = (cardId) => {
@@ -88,4 +76,15 @@ const updateProfilePicture = (link) => {
       avatar: link,
     }),
   }).then(handleRespone);
+};
+
+export {
+  getUserData,
+  getInitialCards,
+  editProfileInfo,
+  addNewCard,
+  deleteCardApi,
+  putLikeApi,
+  removeLikeApi,
+  updateProfilePicture,
 };

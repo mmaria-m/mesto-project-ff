@@ -213,16 +213,6 @@ Promise.all([getUserData(), getInitialCards()])
         handleCardClick
       );
       placesList.append(cardElement);
-
-      const cardLikesCounter = cardElement.querySelector(".card__like-counter");
-      cardLikesCounter.textContent = item.likes.length;
-
-      const isLikedByMe = item.likes.some((like) => userData._id === like._id);
-
-      if (isLikedByMe) {
-        const likeButton = cardElement.querySelector(".card__like-button");
-        likeButton.classList.add("card__like-button_is-active");
-      }
     });
   })
   .catch((err) => {

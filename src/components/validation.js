@@ -1,5 +1,3 @@
-export { enableValidation, clearValidation };
-
 const showInputError = (
   formElement,
   inputElement,
@@ -97,3 +95,5 @@ const clearValidation = (formElement, validationConfig) => {
     hideInputError(formElement, inputElement, validationConfig);
   });
 };
+
+export { enableValidation, clearValidation };
